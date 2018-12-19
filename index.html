@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <meta charset="UTF-8">
+            <title>Psychic Game</title>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+            <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+            <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+            <script src="./assets/javascript/game.js"></script>
+
+            
+
+    </head>
+
+    <body>
+        <div class="containter ">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header bg-info">
+                            <h1 class="text-center py-3"> Psychic Game </h1>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+               <div class="col-md-2">
+
+                </div>
+                <div class="col-md-4">
+                    <p class="text-center py-5">
+                    </p>
+                </div>
+                <div class="col-md-6"></div>
+                
+            </div>
+            <p>Choose a letter, you have a total of 9 guesses!</p>
+            <p id= "wins-output">Wins: 0</p>
+            <p id= "losses-output">Losses: 0</p>
+            <p id= "remaining-guesses">Remaining Guesses: 9</p>
+            <p id= "guesses">Letter Guessed: None</p>
+            <p id="error-message"></p>        
+        </div>
+        
+
+
+        <script type="text/javascript">
+            var alphabet= ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+            var wins= 0;
+            var losses= 0;
+            var remaining= 9;
+            var guesses= [];
+            var guessesO = "";
+
+
+
+            var winsText = document.getElementById("wins-output");
+            var lossesText = document.getElementById("losses-output");
+            var remainingText = document.getElementById("remaining-guesses");
+            var guessesText = document.getElementById("guesses");
+            var errorMessage = document.getElementById("error-message"); 
+
+
+            document.onkeyup = function(event) {
+                errorMessage.textContent = "";
+
+
+                // Determines which key was pressed.
+                var userGuess = event.key;
+
+                // Randomly chooses a choice from the options array. This is the Computer's guess.
+                var computerGuess = alphabet[Math.floor(Math.random() * alphabet.length)];
+                console.log(computerGuess);
+
+
+                if (alphabet.includes(userGuess)) {
+                    if (userGuess === computerGuess) {
+                        wins++;
+                    }else {
+                        remaining--;
+                        guesses+= userGuess + ", ";
+
+                        if (remaining===0){
+                            losses++;
+                            remaining = 9
+                            guesses=[];
+                        }
+                    }
+
+                    // directionsText.textContent = "";
+                    
+
+                    // Display the user and computer guesses, and wins/losses/ties.
+                    winsText.textContent = "Wins:" + wins;
+                    lossesText.textContent = "Losses: " + losses;
+                    remainingText.textContent = "Remaining Guesses: " + remaining;
+                    
+                    guessesText.textContent = "Letter Guessed: " + guesses;
+;
+
+
+                    
+                  
+
+                    
+                } else {
+                    errorMessage.textContent = "INVALID Guess. Try a letter.";
+                }            
+            };
+       
+        </script>
+
+    </body>
+</html>
